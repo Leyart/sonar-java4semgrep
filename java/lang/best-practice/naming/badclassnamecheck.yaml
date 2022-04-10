@@ -1,0 +1,15 @@
+rules:
+- id: badclassnamecheck 
+  patterns: 
+    - pattern: class $CLASSNAME { ... }
+    - pattern-not-inside: enum $ENUM { ... }
+    - metavariable-regex:
+        metavariable: $CLASSNAME
+        regex: (?!^[A-Z][a-zA-Z0-9]*$)
+  message: Rename the class name '$CLASSNAME' to match the regular expression ^[A-Z][a-zA-Z0-9]*
+  languages: [java]
+  severity: WARNING
+  metadata:
+    key: "S101"
+    github-ref: https://github.com/SonarSource/sonar-java/blob/master/java-checks/src/main/java/org/sonar/java/checks/naming/BadClassNameCheck.java
+
