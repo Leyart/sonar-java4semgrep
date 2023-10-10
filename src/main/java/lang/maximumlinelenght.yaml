@@ -1,0 +1,12 @@
+rules:
+  - id: maximumLineLength
+    patterns:
+      - pattern-regex: .{120,}
+      - pattern-not-regex: //.*|("(?:\\[^"]|\\"|.)*?")|(?s)/\*.*?\*/
+    message: Split this long line which is longer than the 120 character authorised.
+    languages:
+      - java
+    severity: INFO
+    metadata:
+      key: S103
+      github-ref: https://github.com/SonarSource/sonar-java/blob/master/java-checks/src/main/java/org/sonar/java/checks/TooLongLineCheck.java
