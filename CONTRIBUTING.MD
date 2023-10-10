@@ -18,26 +18,37 @@ $ cd sonar-java4semgrep/
 $ git remote add upstream https://github.com/Leyart/sonar-java4semgrep.git
 ```
 
-2. Create a new branch
+2. Create a new branch, with the following naming convention: `rule/ruleid`
+Before creating the branch, ensure that the rule that you want to implement has not been already implemented by searching for the corresponding key in the repository
+
 ```bash
-$ git checkout -b my-new-branch
+$ git checkout -b rule/S103
 ```
 
 3. Make your change(s).
-
-    - Remember to specify in your rule definition, under the metadata section, the key of the rule that you are implementing 
-    based on the SonarSource repository and a link reference to the java class of the same rule referenced in the key, 
+- For the yaml specification:
+    - Follow Semgrep's [Rule Syntax](https://semgrep.dev/docs/writing-rules/rule-syntax/)
+    - Always include:
+      - An id in camelCase
+      - A message as close as possible to the corresponding SonarQube rule you are implementing
+      - Always specify java under languages
+      - Under the metadata section, the key of the rule that you are implementing 
+    based on the SonarSource repository and a reference link to the java class of the same rule referenced in the key, 
     as follows:
 ```
 metadata:
       key: S103
       github-ref: https://github.com/SonarSource/sonar-java/blob/master/java-checks/src/main/java/org/sonar/java/checks/TooLongLineCheck.java
 ```
+- For the java tests:
+  - Try to use tests as close as possible to the ones specified in the [SonarSource]((https://github.com/SonarSource/sonar-java/)) repository
+  - Call the java file with the same id as the rule in the yaml specification
 
-4. Commit the change(s) and push to your fork
+4. Commit the change(s) and push to your fork. Please mark your commits with a message formatted as: 
+```rulekey: rulename```
 ```bash
 $ git add .
-$ git commit -s -m "This is my first commit"
+$ git commit -s -m "S103: maximumlinelength"
 $ git push -u origin my-new-branch
 ```
 6. Then, [submit a pull request](https://github.com/Leyart/sonar-java4semgrep/compare).
