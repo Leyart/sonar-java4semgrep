@@ -1,0 +1,25 @@
+rules:
+  - id: badabstractclassnamecheck
+    pattern-either:
+      - patterns:
+          - pattern: abstract class $NOTABSTRACT { ... }
+          - metavariable-regex:
+              metavariable: $NOTABSTRACT
+              regex: ^(?!Abstract[A-Z][a-zA-Z0-9]*$)\w+$
+      - patterns:
+          - pattern: class $ABSTRACT { ... }
+          - pattern-not: abstract class $ABSTRACT { ... }
+          - metavariable-regex:
+              metavariable: $ABSTRACT
+              regex: ^Abstract[A-Z][a-zA-Z0-9]*$
+    message: Make sure that this class is abstract and respect the regular expression ^Abstract[A-Z][a-zA-Z0-9]*$
+    languages:
+      - java
+    severity: WARNING
+    metadata:
+      key: S118
+      category: best-practice
+      references:
+        - https://github.com/SonarSource/sonar-java/blob/master/java-checks/src/main/java/org/sonar/java/checks/naming/BadAbstractClassNameCheck.java
+      technology:
+        - java
