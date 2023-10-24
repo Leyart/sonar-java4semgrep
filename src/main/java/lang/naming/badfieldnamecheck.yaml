@@ -1,0 +1,18 @@
+rules:
+    - id: badfieldnamecheck
+      patterns:
+          - pattern: $ACCESS_TYPE $VARIABLE_NAME
+          - pattern-not: static $ACCESS_TYPE $VARIABLE_NAME
+          - metavariable-regex:
+                metavariable: $VARIABLE_NAME
+                regex: (?![a-z][a-zA-Z0-9]*)
+      message: Rename this field $VARIABLE_NAME to match the regular expression [a-z][a-zA-Z0-9]*.
+      languages:
+          - java
+      severity: WARNING
+      key: S116
+      category: naming
+      references:
+          - https://github.com/SonarSource/sonar-java/blob/master/java-checks/src/main/java/org/sonar/java/checks/naming/BadFieldNameCheck.java
+      technology:
+          - java
